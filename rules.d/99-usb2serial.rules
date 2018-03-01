@@ -1,0 +1,4 @@
+KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="usb2serial/sl_%s{serial}"
+
+KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="usb2serial/ftdi_%s{serial}"
+KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6011", SYMLINK+="usb2serial/ftdi_%s{serial}_$env{ID_USB_INTERFACE_NUM}"
