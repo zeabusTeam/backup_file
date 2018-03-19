@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<robot name="zeabus_pelican" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Included URDF Files -->
+    <xacro:include filename="$(find zeabus_description)/urdf/pelican_base.gazebo.xacro" />
+    <xacro:include filename="$(find zeabus_description)/urdf/pelican_sensors.urdf.xacro" />
+	<xacro:include filename="$(find zeabus_gazebo)/urdf/zeabus_plugins.gazebo.xacro"/>
+	
+	<!--xacro:zeabus_propulsion /-->
+	<xacro:zeabus_gazebo_controller/>
+</robot>

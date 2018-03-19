@@ -1,0 +1,15 @@
+<launch>
+	<node pkg="hg_ros_trax" name="imu_trax" type="trax_node" output="screen">
+		<param name="device" value="/dev/usb2serial/ftdi_A703ZGDU" />
+		<param name="baudrate" value="38400" />
+		<param name="frame_id" value="trax_link" />
+		<remap from="imu/data" to="trax/data"/>
+		
+		<param name="linear_acceleration_stdev" value="0.098"/>
+		<param name="orientation_stdev" value="0.035"/>
+		<param name="angular_velocity_stdev_" value="0.012"/>
+	</node>
+	<!--node pkg="zeabus_bringup" name="trax_vis" type="imu_3D_visualization.py">
+		<remap from="imu/data" to="trax/data"/>
+	</node-->
+</launch> 

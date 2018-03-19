@@ -1,0 +1,8 @@
+<launch>
+	<arg name="modbus_serialport" default="/dev/usb2serial/ftdi_AJ0390DE"/>
+<!-- Modbus master -->
+	<node pkg="modbus_ascii_ros" type="zeabus_modbus_master" name="zeabus_modbus_master" output="screen">
+		<param name="device" value="$(arg modbus_serialport)"/>
+		<param name="frame_id" value="baro_link"/>	
+	</node>
+</launch>	

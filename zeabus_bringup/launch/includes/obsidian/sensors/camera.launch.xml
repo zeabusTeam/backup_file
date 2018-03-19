@@ -1,0 +1,15 @@
+<launch>
+	<node pkg="nodelet" type="nodelet" name="gscam_nodelet" args="manager" output="screen"/>
+	
+	<node pkg="nodelet" type="nodelet" name="logitech_025039A0" args="load gscam/GSCamNodelet
+		gscam_nodelet" output="screen">
+		<param name="camera_info_url" value="package://zeabus_bringup/launch/includes/obsidian/camera_info/logitech_025039A0.yaml"/>
+		<param name="gscam_config" value="v4l2src device=/dev/usbcamera/logitech_025039A0
+			! image/jpeg, width=640, height=480, framerate=30/1 ! jpegdec ! timeoverlay halign=right valign=bottom ! ffmpegcolorspace"/>
+		<param name="frame_id" value="front_cam_link"/>
+		<param name="camera_name" value="front_cam"/>
+		<param name="sync_sink" value="true"/>
+	</node>
+	
+	<!--node pkg="zeabus_bringup" name="camera_settings" type="set_usb_cameras.sh" /-->
+</launch>

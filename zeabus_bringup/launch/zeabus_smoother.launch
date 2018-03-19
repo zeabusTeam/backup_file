@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- 
+        thrust mapper 
+            - subscribe to /cmd_vel
+            - publish pwm at /pwm
+    -->
+    <node pkg="zeabus_controller" type="thrust_mapper.py" name="thrust_mapper">
+    </node>
+
+    <!--
+        Zeabus modbus master
+            - subscribe to /pwm
+            - send command to modbus
+    -->
+    <!--node pkg="modbus_ascii_ros" type="zeabus_modbus_master" name="zeabus_modbus_master" output="screen">
+        <param name="device" value="/dev/usb2serial/ftdi_AJ0390DE"/>
+    </node-->
+    <node pkg="zeabus_controller" type="controller.py" name="pid_controller" output="screen">
+    </node>
+    
+    <node pkg="zeabus_navigation" type="smoothy.py" name="smoothy" output="screen">
+    </node>
+
+    <node pkg="zeabus_bringup" type="zeabus_shutdown.py" name="shutdown_node" required="true">
+    </node>
+    
+</launch>

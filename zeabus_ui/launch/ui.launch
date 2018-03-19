@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="zeabus_ui" type="main.py" name="ui_Main" output="screen" required="true">
+    </node>
+</launch>

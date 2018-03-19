@@ -1,0 +1,29 @@
+ color_example:
+  upper_orange: '0,0,0'
+
+  lower_orange: '179,255,255'
+
+  upper_red: '104,145,89'
+
+  lower_red: '75,80,59'
+
+  upper_yellow: '54,222,197'
+
+  lower_yellow: '35,147,158'
+
+  upper_green: '77,185,255'
+
+  lower_green: '8,156,118'
+
+  upper_black: '6,185,255'
+
+  lower_black: '0,181,255'
+
+  upper_navy: '115,202,232'
+
+  lower_navy: '97,127,67'
+
+  upper_lips: '179,181,171'
+
+  lower_lips: '161,68,10'
+

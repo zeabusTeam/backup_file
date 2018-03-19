@@ -1,0 +1,9 @@
+int32 dummy
+---
+int32[] address
+string[] name
+int32[] reg_count_bank_1
+int32[] reg_count_bank_2
+int32[] reg_count_bank_3
+int32[] reg_count_bank_4
+MBGetRegisterName[] register_name

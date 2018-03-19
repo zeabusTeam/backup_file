@@ -1,0 +1,6 @@
+int32 device_address
+int32 register_start_address
+int32 register_quantity
+int32[] status
+---
+bool dummy

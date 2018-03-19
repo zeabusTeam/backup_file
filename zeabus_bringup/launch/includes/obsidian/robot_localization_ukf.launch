@@ -1,0 +1,5 @@
+<!-- Launch file for ukf_localization_node -->
+<launch>
+	<include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/dvl.launch.xml"/>
+	<include file="$(find zeabus_bringup)/launch/includes/obsidian/robot_localization_ukf.launch.xml"/>
+</launch>

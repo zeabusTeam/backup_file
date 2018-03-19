@@ -1,0 +1,25 @@
+ color_morning:
+  upper_yellow: '179,255,255'
+
+  lower_yellow: '0,215,225'
+
+  upper_black: '155,93,255'
+
+  lower_black: '150,21,255'
+
+  upper_orange: '170,216,255'
+
+  lower_orange: '150,96,255'
+
+  upper_green: '16,246,255'
+
+  lower_green: '3,203,255'
+
+  upper_white: '0,0,0'
+
+  lower_white: '179,255,255'
+
+  upper_red: '179,255,255'
+
+  lower_red: '178,236,255'
+

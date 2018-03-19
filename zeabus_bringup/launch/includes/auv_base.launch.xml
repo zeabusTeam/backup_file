@@ -1,0 +1,11 @@
+<!--
+The AUV platform base.
+Selector for the base.
+-->
+<launch>
+	<arg name="base"/>
+	<arg name="base_serialport"/>
+	<include file="$(find zeabus_bringup)/launch/includes/$(arg base)/auv_base.launch.xml">		
+		<arg name="base_serialport" value="$(arg base_serialport)"/>		
+	</include>
+</launch>

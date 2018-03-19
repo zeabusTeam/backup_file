@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>hg_ros_teledyne_dvl</name>
+  <version>0.0.1</version>
+  <description>Teledyne Explorer DVL driver of ROS</description>
+
+  <maintainer email="mahisorn.w@hiveground.com">mahisorn</maintainer>
+  <author>Mahisorn Wongphati</author>
+  <license>LGPL</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <run_depend>roscpp</run_depend>
+  
+  <build_depend>hg_ros_serial</build_depend>
+  <run_depend>hg_ros_serial</run_depend>
+  
+  <build_depend>geometry_msgs</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  
+  <build_depend>diagnostic_msgs</build_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  
+  <export>
+  </export>
+</package>

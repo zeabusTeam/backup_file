@@ -1,0 +1,19 @@
+pub_rate: 1.0 # Optional
+base_path: '' # Optional, prepended to all diagnostic output
+analyzers:
+  imu:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: 'IMU'
+    timeout: 5.0
+    startswith: imu
+  dvl:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: 'DVL'
+    timeout: 5.0
+    startswith: dvl
+  altimeter:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: 'Altimeter'
+    timeout: 5.0
+    startswith: altimeter
+    

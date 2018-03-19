@@ -1,0 +1,25 @@
+<package>
+	<name>zeabus_bringup</name>
+	<version>0.0.1</version>
+	<description>zeabus_bringup</description>
+	<maintainer email="mahisorn.w@hiveground.com">Mahisorn Wongphati</maintainer>
+	<license>BSD</license>	
+  	<url type="website">http://iml.cpe.ku.ac.th/zeabus/</url>
+	
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<run_depend>robot_state_publisher</run_depend>
+	
+	<run_depend>hg_ros_serial</run_depend>
+	<run_depend>hg_ros_trax</run_depend>
+	<run_depend>hg_ros_teledyne_dvl</run_depend>
+	<run_depend>hg_ros_tritech_altimeter</run_depend>
+	<run_depend>hg_ros_pololu</run_depend>
+	<run_depend>microstrain_3dmgx2_imu</run_depend>
+
+	<run_depend>zeabus_controller</run_depend>	
+	<run_depend>zeabus_description</run_depend>
+	<run_depend>zeabus_msgs</run_depend>	
+	<run_depend>zeabus_teleop</run_depend>
+
+</package>

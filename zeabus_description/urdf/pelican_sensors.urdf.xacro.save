@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+
+<robot name="zeabus_pelican" xmlns:xacro="http://ros.org/wiki/xacro">
+   <xacro:property name="M_PI" value="3.1415926535897931"/>
+    <!-- Camera -->
+<xacro:include filename="$(find zeabus_description)/urdf/sensors/generic_camera.urdf.xacro" />
+   	<xacro:generic_camera name="leftcam" 
+   		parent="base_link" 
+   		ros_topic="image_raw" 
+   		cam_info_topic="camera_info" 
+   		update_rate="30" 
+   		res_x="800" res_y="600" 
+   		image_format="R8G8B8" 
+   		hfov="90">
+		<origin xyz="0.45 0 0.044" rpy="0 0 0"/>
+	</xacro:generic_camera>
+
+   <!-- Stereo Front -->
+<!--  	<xacro:include filename="$(find zeabus_description)/urdf/sensors/generic_stereo_camera.urdf.xacro" />
+   	<xacro:generic_stereo_camera name="front_stereo_camera" 
+   		parent="base_link" 
+   		ros_topic="image" 
+   		cam_info_topic="camera_info" 
+   		update_rate="30" 
+   		res_x="640" res_y="480" 
+   		image_format="R8G8B8" 
+   		hfov="90"
+   		right_offset="-0.07">
+		<origin xyz="0.45 0 0.044" rpy="0 0 0"/>
+	</xacro:generic_stereo_camera> -->
+
+   <xacro:include filename="$(find zeabus_description)/urdf/sensors/generic_camera.urdf.xacro" />
+      <xacro:generic_camera name="rightcam" 
+         parent="base_link" 
+         ros_topic="image_raw" 
+         cam_info_topic="camera_info" 
+         update_rate="30" 
+         res_x="800" res_y="600" 
+         image_format="R8G8B8" 
+         hfov="90">
+      <origin xyz="0.45 0 0.044" rpy="0 1.570795 0"/>
+   </xacro:generic_camera>
+
+   <!-- Stereo Bottom -->
+<!--    <xacro:include filename="$(find zeabus_description)/urdf/sensors/generic_stereo_camera.urdf.xacro" />
+      <xacro:generic_stereo_camera name="bottom_stereo_camera" 
+         parent="base_link" 
+         ros_topic="image" 
+         cam_info_topic="camera_info" 
+         update_rate="30" 
+         res_x="640" res_y="480" 
+         image_format="R8G8B8" 
+         hfov="90"
+         right_offset="-0.07">
+      <origin xyz="0.45 0 0.044" rpy="0 M_PI/2 0"/>
+   </xacro:generic_stereo_camera> -->
+
+
+   <!-- Sonar -->
+<!--  	<xacro:include filename="$(find zeabus_description)/urdf/sensors/generic_range_sensor.urdf.xacro" />
+   	<xacro:generic_range_sensor name="sonar" 
+   		parent="base_link"   		
+   		ros_topic="sonar"   		
+   		update_rate="10"
+   		samples="90"
+   		resolution="1"
+   		min_angle="-90"
+   		max_angle="90"
+   		range_min="0.1"
+   		range_max="30.0"
+   		range_resolution="0.01"
+   		noise_mean="0.0"
+   		noise_stddev="0.01">
+		<origin xyz="0.7 0 0.044" rpy="0 0 0"/>
+	</xacro:generic_range_sensor> -->
+
+   <!-- DVL -->
+<!--    <joint name="dvl_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="dvl_link"/>        
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+   </joint>    
+   <link name="dvl_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.06"/>
+         </geometry>            
+      </visual>         
+   </link>    -->  
+
+   <!-- trax -->
+<!--    <joint name="trax_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="trax_link"/>        
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+   </joint>    
+   <link name="trax_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.06"/>
+         </geometry>            
+      </visual>         
+   </link>    -->  
+   
+   <!-- microstrain -->
+<!--    <joint name="microstrain_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="microstrain_link"/>        
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+   </joint>    
+   <link name="microstrain_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.06"/>
+         </geometry>            
+      </visual>         
+   </link>      -->
+	
+   <!--gx4_45_imu microstrain -->
+   <joint name="gx4_45_imu_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="gx4_45_imu_link"/>        
+      <origin xyz="0 0 0" rpy="0 0 "/>
+   </joint>    
+   <link name="gx4_45_imu_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.06"/>
+         </geometry>            
+      </visual>         
+   </link>   
+<!-- fog_imu -->
+   <joint name="fog_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="fog_link"/>        
+      <origin xyz="-0.3 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <!--origin xyz="0.0 0.0 0.0" rpy="0.0 -1.570796 -0.78539816"/-->
+      <!--origin xyz="0.0 0.0 0.0" rpy="-1.570796 0.785398 -0.78539816"/-->
+      <!--origin xyz="0.0 0.0 0.0" rpy="-0.0 0.0 -0.0"/-->
+   </joint>    
+   <link name="fog_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.06"/>
+         </geometry>            
+      </visual>         
+   </link>     
+ <!--joint name="altimeter_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="altimeter_link"/>        
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+   </joint>    
+   <link name="altimeter_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.00"/>
+         </geometry>            
+      </visual>         
+   </link-->
+   
+   <!--joint name="baro_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="baro_link"/>        
+      <origin xyz="0.0 0.0 5.0" rpy="0 0 0"/>
+   </joint>    
+   <link name="baro_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.00"/>
+         </geometry>            
+      </visual>         
+   </link-->
+
+    <xacro:include filename="$(find hector_sensors_description)/urdf/sonar_sensor.urdf.xacro" />
+      <xacro:property name="pi" value="3.1415926535897931" />
+      <xacro:sonar_sensor name="sonar" parent="base_link" ros_topic="sonar_height" update_rate="10" min_range="0.03" max_range="3.0" field_of_view="${40*pi/180}" ray_count="3">
+      <origin xyz="-0.16 0.0 -0.012" rpy="0 ${90*pi/180} 0"/>
+    </xacro:sonar_sensor>
+
+   <!--  <joint name="sonar_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="sonar_link"/>        
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+   </joint>    
+   <link name="sonar_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.00"/>
+         </geometry>            
+      </visual>         
+   </link> -->
+ <joint name="base_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="dvl_link"/>        
+      <origin xyz="0.15 -0.10 -0.05" rpy="0 0 0"/>
+   </joint>    
+   <link name="dvl_link">
+      <inertial>
+         <mass value="0.1" />
+         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+         <origin xyz="0.15 -0.10 -0.05" rpy="0 0 0" />
+         <geometry>
+            <cylinder length="0.03" radius="0.00"/>
+         </geometry>            
+      </visual>         
+   </link>
+
+</robot>

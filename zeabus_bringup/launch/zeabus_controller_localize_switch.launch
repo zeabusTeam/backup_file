@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="shutdown_node" pkg="zeabus_bringup" type="zeabus_shutdown.py" required="true"/>
+    <include file="$(find zeabus_controller)/launch/control.launch" />
+    <include file="$(find zeabus_bringup)/launch/zeabus_dvl_localize.launch" />
+</launch>
+
+

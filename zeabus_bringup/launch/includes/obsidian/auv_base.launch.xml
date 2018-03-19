@@ -1,0 +1,38 @@
+<!--
+The Obsidian AUV platform base.
+-->
+<launch>
+	<arg name="base_serialport"/>
+		
+	<!-- Base drivers -->
+	<!--node pkg="hg_ros_pololu" type="maestro_node" name="maestro12" output="screen">
+		<param name="device" value="$(arg base_serialport)"/>
+		<param name="baudrate" value="115200"/>		
+		<param name="device_id" value="12"/>
+		<param name="num_channel" value="8"/>
+		<param name="warn_num_channel" value="true"/>
+		<param name="enable_timeout" value="true"/>
+		<param name="timeout_period" value="0.5"/>
+		<param name="warm_timeout" value="true"/>	
+	</node-->
+	
+	<!-- Sensors -->
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/imu_microstrain.launch.xml"/-->
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/imu_trax.launch.xml"/-->	
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/dvl.launch.xml"/-->
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/altimeter.launch.xml"/-->
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/camera.launch.xml"/-->
+	
+	<!-- The odometry estimator -->	
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/robot_localization_ukf.launch.xml"/-->
+		
+	<!-- Base nodelet manager -->
+	<node pkg="nodelet" type="nodelet" name="auv_base_nodelet_manager" args="manager"/>
+		
+	
+	<!--node pkg="nodelet" type="nodelet" name="cmd_vel_mux" args="load yocs_cmd_vel_mux/CmdVelMuxNodelet
+		auv_base_nodelet_manager">		
+	</node-->
+	
+	<!--node pkg="rviz" type="rviz" name="rviz"/-->	
+</launch>

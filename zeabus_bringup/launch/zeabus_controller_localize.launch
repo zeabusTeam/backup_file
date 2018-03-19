@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find controller)/launch/control.launch" />
+    <include file="$(find zeabus_bringup)/launch/zeabus_dvl_localize.launch" />
+</launch>
+
+

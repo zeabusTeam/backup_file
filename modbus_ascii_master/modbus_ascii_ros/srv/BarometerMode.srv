@@ -1,0 +1,4 @@
+int32 adcMode
+int32 windowSize
+---
+bool result

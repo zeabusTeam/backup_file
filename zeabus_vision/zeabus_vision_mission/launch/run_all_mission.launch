@@ -1,0 +1,31 @@
+<launch>
+	<!-- ///////////////////// BOUY ///////////////////// -->
+	<arg name="mission1" value="bouy"/>
+	<arg name="camera1" value="top"/>
+	<rosparam ns="color_range_$(arg mission1)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera1)_$(arg mission1).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission_$(arg mission1)" type="$(arg mission1).py" output="screen"/>
+	<!-- ///////////////////// SQUID ///////////////////// -->
+	<arg name="mission2" value="squid"/>
+	<arg name="camera2" value="top"/>
+	<rosparam ns="color_range_$(arg mission2)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera2)_$(arg mission2).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission_$(arg mission2)" type="$(arg mission2).py" output="screen"/>
+	<!-- ///////////////////// PATH ///////////////////// -->
+	<arg name="mission3" value="path"/>
+	<arg name="camera3" value="bottom"/>
+	<rosparam ns="color_range_$(arg mission3)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera3)_$(arg mission3).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission_$(arg mission3)" type="$(arg mission3).py" output="screen"/>
+	<!-- ///////////////////// navigate ///////////////////// -->
+	<arg name="mission4" value="navigate"/>
+	<arg name="camera41" value="top"/>
+	<arg name="camera42" value="bottom"/>
+	<rosparam ns="color_range_$(arg mission4)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera41)_$(arg mission4).yaml"/>
+	<rosparam ns="color_range_$(arg mission4)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera42)_$(arg mission4).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission_$(arg mission4)" type="$(arg mission4).py" output="screen"/>
+	<!-- ///////////////////// BIN ///////////////////// -->
+	<arg name="mission5" value="bin"/>
+	<arg name="camera5" value="bottom"/>
+	<rosparam ns="color_range_$(arg mission5)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera5)_$(arg mission5).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission_$(arg mission5)" type="$(arg mission5).py" output="screen"/>
+	<!-- ///////////////////// TOWER ///////////////////// -->
+	<!-- <arg name="mission2" value="squid"/><arg name="camera2" value="top"/><rosparam ns="color_range_$(arg mission2)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera2)_$(arg mission2).yaml"/><node pkg="zeabus_vision_mission" name="mission_$(arg mission2)" type="$(arg mission2).py" output="screen"/> -->
+</launch>

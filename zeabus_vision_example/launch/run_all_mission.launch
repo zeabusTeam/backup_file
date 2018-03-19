@@ -1,0 +1,17 @@
+<launch>
+    <!-- //////////////GATE///////////// -->
+	<arg name="mission1" value="gate"/>
+	<arg name="time1" value="morning"/>
+	<rosparam ns="color_range_$(arg mission1)" command="load" file="$(find zeabus_example)/params/$(arg time1)/color_$(arg mission1).yaml"/>
+	<node pkg="zeabus_example" name="mission_gate" type="$(arg mission1).py" output="screen"/>
+    <!-- //////////////FLARE///////////// -->
+	<arg name="mission2" value="flare"/>
+	<arg name="time2" value="morning"/>
+	<rosparam ns="color_range_$(arg mission2)" command="load" file="$(find zeabus_example)/params/$(arg time2)/color_$(arg mission2).yaml"/>
+	<node pkg="zeabus_example" name="mission_flare" type="$(arg mission2).py" output="screen"/>
+    <!-- //////////////DRUM///////////// -->
+	<arg name="mission3" value="drum"/>
+	<arg name="time3" value="morning"/>
+	<rosparam ns="color_range_$(arg mission3)" command="load" file="$(find zeabus_example)/params/$(arg time3)/color_$(arg mission3).yaml"/>
+	<node pkg="zeabus_example" name="mission_drum" type="$(arg mission3).py" output="screen"/>    
+</launch> 

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html ng-app="zeabusModbusMaster">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Zeabus Modbus</title>
+
+    <script src="lib/eventemitter2.min.js"></script>
+    <script src="lib/roslib.min.js"></script>
+    <!-- Compiled and minified CSS -->
+
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/ubuntu-font.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+
+    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/materialize.min.js"></script>
+
+    <script src="lib/angular.min.js"></script>
+
+    <script src="js/script.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/factory.js"></script>
+
+  </head>
+
+  <body>
+
+    <div ng-controller="modbusController">
+      
+      <div class="row" id="header">
+
+        <div class="col s6">
+          <h2 class="title">{{deviceSelected.name}}</h2>
+        </div>
+        <div class="input-field col offset-s2">
+          <input placeholder="localhost" id="hostname" type="text" class="validate">
+          <label>Hostname</label>
+        </div>
+        <div class="col s2">
+          status :
+          <div id="statusIndicator" class="title valign-wrapper">
+            <p id="connecting" class="valign">
+              Connecting to rosbridge...
+            </p>
+            <p id="connected"  class="valign" style="color:#00D600; display:none">
+              Connected
+            </p>
+            <p id="error" style="color:#FF0000; display:none">
+              Error in the backend!
+            </p>
+            <p id="closed" style="color:#FF0000; display:none">
+              Connection closed.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="content">
+        <div class="col center" id="devices">
+          <h5 class="table-name">Devices</h5>
+          <table class="highlight centered bordered">
+            <thead>
+              <tr>
+                  <th data-field="address">ADDR</th>
+                  <th data-field="name">NAME</th>
+              </tr>
+            </thead>
+
+            <tbody ng-repeat="device in devices" class="devices">
+              <tr ng-click="loadDevice(device)" ng-class="{'space-grey': deviceSelected.address == device.address}">
+                <td>{{device.address}}</td>
+                <td>{{device.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <br>
+
+          <a class="waves-effect waves-light btn " ng-click="scanDevices()">Scan</a>
+
+          <br>
+          
+          <br>
+          <div class="divider"></div>
+          <br>
+          <div class="input-field col">
+            <select 
+              ng-model="autoUpdateRate" 
+              ng-init="autoUpdateRate"
+              ng-change="setInterval(autoUpdateRate)" 
+              ng-options="rate for rate in autoUpdateRates">
+            >
+            </select>
+            <label>Auto update rate (ms) {{$scope.autoUpdateRate}}</label>
+          </div>
+
+        </div>
+
+        <div class="col space-grey" id="allRegisters">
+
+          <div class="col center">
+            <h5 class="table-name">Dicrete Input</h5>
+            <table class="highlight centered bordered">
+              <thead>
+                <tr>
+                    <th data-field="address">ADDR</th>
+                    <th data-field="name">NAME</th>
+                    <th data-field="value">VALUE</th>
+                </tr>
+              </thead>
+
+              <tbody ng-repeat="name in deviceSelected.register_name.discrete_input_name track by $index" >
+                <tr id="DI">
+                  <td>{{$index}}</td>
+                  <td id="DI-name-{{$index}}">{{name}}</td>
+                  <td id="DI-status-{{$index}}"></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+
+            <a class="waves-effect waves-light btn" ng-click="readAllDiscreteInput()">Refresh</a>
+            <div class="switch">
+              <label>
+                AutoRefresh : <span ng-style="DIautoScan && {'color': 'green'}|| {'color': 'grey'}">{{DIautoScan ? "__ACTIVE" : "INACTIVE"}}</span>
+                <input type="checkbox" ng-model="DIautoScan">
+                <span class="lever"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col center">
+            <h5 class="table-name">Coil</h5>
+            <table class="highlight centered bordered">
+              <thead>
+                <tr>
+                    <th data-field="address">ADDR</th>
+                    <th data-field="name">NAME</th>
+                    <th data-field="value">VALUE</th>
+                    <th data-field="command">COMMAND</th>
+                </tr>
+              </thead>
+
+              <tbody ng-repeat="name in deviceSelected.register_name.coil_name track by $index" >
+                <tr>
+                  <td>{{$index}}</td>
+                  <td id="COIL-name-{{$index}}">{{name}}</td>
+                  <td id="COIL-status-{{$index}}"></td>
+                  <td>
+                    <a class="waves-effect green btn " ng-click="writeCoil($index,1)">SET</a>
+                    <a class="waves-effect red btn" ng-click="writeCoil($index,0)">RESET</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+            <a class="waves-effect waves-light btn" ng-click="readAllCoil()">Refresh</a>
+            <div class="switch">
+              <label>
+                AutoRefresh : <span ng-style="COILautoScan && {'color': 'green'}|| {'color': 'grey'}">{{COILautoScan ? "__ACTIVE" : "INACTIVE"}}</span>
+                <input type="checkbox" ng-model="COILautoScan">
+                <span class="lever"></span>
+              </label>
+            </div>
+                  
+          </div>
+
+          <div class="col center">
+            <h5 class="table-name">Input Register</h5>
+            <table class="highlight centered bordered">
+              <thead>
+                <tr>
+                    <th data-field="address">ADDR</th>
+                    <th data-field="name">NAME</th>
+                    <th data-field="value">VALUE</th>
+                </tr>
+              </thead>
+
+              <tbody ng-repeat="name in deviceSelected.register_name.input_register_name track by $index" >
+                <tr id="IR">
+                  <td>{{$index}}</td>
+                  <td id="IR-name-{{$index}}">{{name}}</td>
+                  <td id="IR-status-{{$index}}"></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+
+            <a class="waves-effect waves-light btn" ng-click="readAllInputRegister()">Refresh</a>
+            <div class="switch">
+              <label>
+                AutoRefresh : <span ng-style="IRautoScan && {'color': 'green'}|| {'color': 'grey'}">{{IRautoScan ? "__ACTIVE" : "INACTIVE"}}</span>
+                <input type="checkbox" ng-model="IRautoScan">
+                <span class="lever"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col center">
+            <h5 class="table-name">Holding Register</h5>
+            <table class="highlight centered bordered">
+              <thead>
+                <tr>
+                    <th data-field="address">ADDR</th>
+                    <th data-field="name">NAME</th>
+                    <th data-field="value">VALUE</th>
+                    <th data-field="setvalue">SETVALUE</th>
+                </tr>
+              </thead>
+
+              <tbody ng-repeat="name in deviceSelected.register_name.holding_register_name track by $index" >
+                <tr>
+                  <td>{{$index}}</td>
+                  <td id="HR-name-{{$index}}">{{name}}</td>
+                  <td id="HR-status-{{$index}}"></td>
+                  <td><input class="HR-input" 
+                  data-index="{{$index}}" 
+                  ng-model="HRvalues[$index]" 
+                  ng-keyup="$event.keyCode == 13 && writeHR($index,HRvalues[$index])" placeholder="--------"></input></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+
+            <a class="waves-effect waves-light btn" ng-click="readAllHoldingRegister()">Refresh</a>
+            <div class="switch">
+              <label>
+                AutoRefresh : <span ng-style="HRautoScan && {'color': 'green'}|| {'color': 'grey'}">{{HRautoScan ? "__ACTIVE" : "INACTIVE"}}</span>
+                <input type="checkbox" ng-model="HRautoScan">
+                <span class="lever"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <ol id="instuction">
+          <li><tt>roscore</tt></li>
+          <li><tt>roslaunch modbus_ascii_ros modbus_device_server.launch</tt></li>
+          <li><tt>roslaunch rosbridge_server rosbridge_websocket.launch</tt></li>
+        </ol>
+        <ol id="modbus-instuction" style="display: none;">
+          <li><tt>roslaunch modbus_ascii_ros modbus_device_server.launch</tt></li>
+        </ol>
+      </div>
+
+      <div class="row">
+
+        <div id="log">
+          
+        </div>  
+      </div>
+    </div>
+
+
+  </body>
+</html>

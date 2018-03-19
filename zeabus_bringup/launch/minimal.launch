@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="name" default="auv"/>
+  	<arg name="model" default="$(find zeabus_description)/urdf/zeabus_pelican_full.urdf.xacro"/>
+  	<arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+  	<!--arg name="controller_definition" default="$(find zeabus_controller)/launch/controller.launch"/-->
+	
+	
+	
+	<arg name="imu_microstrain_serialport" default="/dev/microstrain/3dm_gx5_45_0000__6251.65901"/>
+	<!-- <arg name="imu_microstrain_serialport" default="/dev/microstrain/3dm_gx4_45_0000__6236.40569"/-->
+	<arg name="hydrophone_serialport" default="/dev/usb2serial/ftdi_AJ038YFU"/>
+	<arg name="dvl_serialport" default="/dev/usb2serial/ftdi_FT1Y3UUZ_02"/>
+	<!--arg name="dvl_serialport" default="/dev/usb2serial/ftdi_AJ0390DD"/-->
+	<!--arg name="altimeter_serialport" default="/dev/usb2serial/ftdi_AJ0390D9"/-->		
+	<!--arg name="fog_serialport" default="/dev/usb2serial/ftdi_AJ0390D5"/-->
+	<arg name="modbus_serialport" default="/dev/usb2serial/ftdi_FT03OMNT_00"/>
+
+	<!--arg name="world_frame" default="world"/-->
+	<!--arg name="base_link_frame" default="$(arg tf_prefix)/base_link"/-->
+
+    
+	<!-- send the robot XML to param server -->
+  	<!--param name="tf_prefix" type="string" value="$(arg tf_prefix)" /-->
+  	<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />  	
+  	<!--param name="base_link_frame" type="string" value="$(arg base_link_frame)"/-->
+  	<!--param name="world_frame" type="string" value="$(arg world_frame)"/-->
+    <!-- power on all device -->
+
+    <!--node pkg="zeabus_bringup" type="zeabus_call.py" name="zeabus_call"/-->
+
+
+	<!-- start robot state publisher -->
+  	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >    
+    	<param name="publish_frequency" type="double" value="50.0" />
+  	</node>
+
+    <!--node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 map odom 100" /-->
+    
+	<!-- start diagnostic_aggregator -->
+  	<!--node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator">
+		<rosparam command="load" file="$(find zeabus_bringup)/param/$(arg base)/diagnostics.yaml"/>
+	</node-->
+
+	<!-- thrust mapper -->
+	<!--node pkg="zeabus_controller" type="thrust_mapper.py" name="thrust_mapper" output="screen">
+	</node-->
+
+
+	<!-- Modbus master 
+	<node pkg="modbus_ascii_ros" type="zeabus_modbus_master" name="zeabus_modbus_master" output="screen">
+		<param name="device" value="$(arg modbus_serialport)"/>
+		<param name="atm_pressure" value="18.261"/>
+		<param name="depth_offset" value="0"/>
+	</node> -->
+
+	<!-- Sensors -->	
+<!-- 	<node pkg="microstrain_3dmgx2_imu" type="imu_node" name="imu_microstrain" output="screen">
+		<param name="port" value="$(arg imu_microstrain_serialport)" />
+		<param name="frame_id" value="microstrain_link"/>
+		<param name="autocalibrate" value="true"/>		
+		<param name="linear_acceleration_stdev" value="0.098"/>
+		<param name="orientation_stdev" value="0.035"/>
+		<param name="angular_velocity_stdev_" value="0.012"/>
+		<remap from="imu/data" to="microstrain/data"/>		
+	</node> -->
+
+    <node pkg="hg_ros_3dm_gx4" name="gx4_45_imu" type="3dm_gx4_node" output="screen">
+        <param name="topic" type="string" value="data" />
+        <param name="device" type="string" value="$(arg imu_microstrain_serialport)" />
+        <param name="baudrate" type="int" value="460800" />
+        <param name="frame_id" type="string" value="gx4_45_imu_link"/>        
+        <param name="imu_rate" type="int" value="100" />        
+    </node>      
+
+	<!-- include file="$(find microstrain_3dm_gx5_45)/launch/microstrain.launch" /> -->
+	
+	<!--node pkg="hg_ros_kvh_imu" type="kvh_imu_node" name="fog">
+		<param name="device" value="$(arg fog_serialport)"/>
+		<param name="baudrate" value="921600"/>
+		<param name="frame_id" value="fog_link"/>
+		<param name="show_debug" value="true"/>
+		
+	</node-->
+	
+	<node name="dvl" output="screen" pkg="hg_ros_teledyne_dvl" type="dvl_node">
+		<param name="device" value="$(arg dvl_serialport )"/>
+		<!--param name="baudrate" value="115200"/-->
+		<param name="baudrate" value="115200"/>
+		<param name="frame_id" value="dvl_link"/>
+		<param name="velocity_stdev" value="0.018"/>
+		<param name="publish_invalid_data" value="true"/>
+
+        <!-- ===================  For Emergency =============== -->
+        
+                <param name="surface_depth" value="4.5"/>
+
+       <!-- ================================================== -->
+
+    </node>
+
+    <!--node name="zeabus_hydrophone" pkg="zeabus_hydrophone" type="hydro_server_2.py" output="screen">
+    </node-->
+
+    <!--include file="$(find zeabus_vision_stereo)/launch/camera.launch">
+    </include-->
+
+    <!--node name="shutdown_node" pkg="zeabus_bringup" type="zeabus_shutdown.py" required="true"/-->
+ 	
+	<!--node name="altimeter" output="screen" pkg="hg_ros_tritech_altimeter" type="altimeter_node">
+		<param name="device" value="$(arg altimeter_serialport)"/>
+		<param name="baudrate" value="9600"/>
+		<param name="frame_id" value="altimeter_link"/>
+		<param name="velocity_stdev" value="0.018"/>
+		<param name="publish_invalid_data" value="true"/>
+	</node-->
+ 
+	<!--include file="$(find zeabus_bringup)/launch/includes/obsidian/sensors/camera.launch.xml"/-->
+	
+	<!-- The odometry estimator -->	
+	<!--include file="$(find zeabus_bringup)/launch/zeabus_localization_ukf.launch.xml"/-->
+		
+	<!-- Base nodelet manager -->
+	<!--node pkg="nodelet" type="nodelet" name="auv_base_nodelet_manager" args="manager" /-->
+			
+	<!--node pkg="nodelet" type="nodelet" name="cmd_vel_mux" args="load yocs_cmd_vel_mux/CmdVelMuxNodelet
+		auv_base_nodelet_manager">		
+	</node-->
+	
+	<!-- robot controller -->
+	<!--node pkg="zeabus_controller" type="zeabus_node" name="zeabus_node" output="screen">		
+	</node-->
+
+  	<!-- spawn controller -->
+  	<!--include file="$(arg controller_definition)" /-->	
+
+	<!-- include P'TETE launch file -->
+	<!-- <include file="$(find modbus_ascii_ros)/launch/modbus_device_server.launch" /> -->
+
+	<include file="$(find hg_ros_pololu)/launch/maestro8.launch" />
+	<!-- include file="$(find zeabus_vision_stereo)/launch/camera_open.launch" /-->
+
+	<!-- include zeabus2017.electronics launch file -->
+	<include file="$(find zeabus_elec_ros_hardware_interface)/launch/hardware_interface.launch" />
+
+</launch>
