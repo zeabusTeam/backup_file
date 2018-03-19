@@ -173,7 +173,7 @@ void listen_imu_data(const sensor_msgs::Imu message);
 
 // setup Dynamic Reconfig
 
-//void config_constant_PID(zeabus_controller::PIDConstantConfig &config, uint32_t level);
+void config_constant_PID(zeabus_controller::PIDConstantConfig &config, uint32_t level);
 
 // set up function of service
 bool service_target_distance( zeabus_controller::fix_rel_xy::Request &request , zeabus_controller::fix_rel_xy::Response &response);
@@ -277,8 +277,8 @@ int main(int argc, char **argv){
 	ros::Publisher tell_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
 	
 // setup dynamic configK of PID
-//	dynamic_reconfigure::Server<zeabus_controller::PIDConstantConfig> server;
-//	dynamic_reconfigure::Server<zeabus_controller::PIDConstantConfig>::CallbackType f;
+	dynamic_reconfigure::Server<zeabus_controller::PIDConstantConfig> server;
+	dynamic_reconfigure::Server<zeabus_controller::PIDConstantConfig>::CallbackType f;
 
 	special_order special_command;
 
@@ -286,12 +286,12 @@ int main(int argc, char **argv){
 	std::cout << "mass of auv is " << mass << std::endl;
 // 100% copy
 
-//	f = boost::bind(&config_constant_PID, _1, _2);
-//	server.setCallback(f);
+	f = boost::bind(&config_constant_PID, _1, _2);
+	server.setCallback(f);
 	ros::Rate rate(50);
 	ros::Rate sleep(10);
 	while(nh.ok()){
-/*		if(first_time_PID){
+		if(first_time_PID){
 			std::cout << "Before download" << std::endl; 
 			PID_file.load_file("Controller");
 			std::cout << "Finish download" << std::endl;
@@ -308,7 +308,7 @@ int main(int argc, char **argv){
 			set_all_PID();
 			reset_all_I();
 		}
-		else{}*/
+		else{}
 		if(step_work == 1){
 		}
 		else if(step_work==8){
@@ -603,7 +603,7 @@ void listen_real_yaw(const std_msgs::Float64 message){
 	if(target_position[5] < 0) target_position[5]+=2*PI;
 	else if(target_position[5] > 2*PI) target_position[5]-=2*PI;
 }
-/*
+
 void config_constant_PID(zeabus_controller::PIDConstantConfig &config, uint32_t level){
 	ROS_ERROR("!!!--K changed---!!!");
 	Kp_position[0] = config.KPPx;
@@ -661,7 +661,7 @@ void config_constant_PID(zeabus_controller::PIDConstantConfig &config, uint32_t 
 		change_PID = true;
 	}
 }
-*/
+
 std_msgs::Bool is_at_fix_position(double error){}
 
 std_msgs::Bool is_at_fix_orientation(double error){}
