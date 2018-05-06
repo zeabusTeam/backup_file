@@ -1,0 +1,42 @@
+<launch>
+  <node name="zeabus_modbus_master" pkg="modbus_ascii_ros" type="zeabus_modbus_master"   output="screen">
+	  <param name="device" value="/dev/usb2serial/ftdi_FT03OMNT_00" />
+	  <param name="deviceName16" value="MAIN POWER" />
+	  <param name="deviceName17" value="PWRBRD_B" />
+	 
+	   
+	  <param name="address16CoilName0" value="Thruster No. 1" />
+	  <param name="address16CoilName1" value="Thruster No. 2" />
+	  <param name="address16CoilName2" value="Thruster No. 3" />
+	  <param name="address16CoilName3" value="Thruster No. 4" />
+	  <param name="address16CoilName4" value="Thruster No. 5" />
+	  <param name="address16CoilName5" value="Thruster No. 6" />
+	  <param name="address16CoilName6" value="Thruster No. 7" />
+	  <param name="address16CoilName7" value="Thruster No. 8" />
+	  <param name="address16CoilName8" value="Thruster SPARE1" />
+	  <param name="address16CoilName9" value="Thruster SPARE2" />
+	  <param name="address16CoilName10" value="I FORGOT IT" />
+	  <param name="address16CoilName11" value="LAMP 1" />
+	  <param name="address16CoilName12" value="LAMP 2" />
+	  <param name="address16CoilName13" value="I FORGOT IT" />
+	  <param name="address16CoilName14" value="DISABLE SWITCH" />
+	  <param name="address16CoilName15" value="I DUNNO" />
+	  
+	  
+	  <param name="address17CoilName0" value="DSP OFF" />
+	  <param name="address17CoilName1" value="I DUNNO" />
+	  <param name="address17CoilName2" value="I DUNNO" />
+	  <param name="address17CoilName3" value="I DUNNO" />
+	  <param name="address17CoilName4" value="I DUNNO" />
+	  
+	 
+	   <param name="address16DiscreteInputName0" value="Switch status" />
+	  </node>
+	   <node name="io_and_pressure" pkg="modbus_ascii_ros" type="io_and_pressure"   output="screen">
+	     <param name="io_device" value="/dev/usb2serial/ftdi_FT03OMNT_01" />
+		 <param name="atm_pressure" value="18.516"/>
+		 <param name="depth_offset" value="0"/>
+		<!--param name="frame_id" value="baro_link"/-->	
+	  </node>
+
+</launch>

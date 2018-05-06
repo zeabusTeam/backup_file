@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<robot name="zeabus_pelican" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Included URDF Files -->
+    <xacro:include filename="$(find zeabus_description)/urdf/pelican_base.urdf.xacro" />
+        
+    <!-- Instantiate pelican_base_macro once (has no parameters atm) -->
+    <xacro:pelican_base_macro />       
+
+    <xacro:include filename="$(find zeabus_description)/urdf/pelican_sensors.urdf.xacro" />
+</robot>

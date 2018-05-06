@@ -1,0 +1,56 @@
+source /opt/ros/kinetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
+export BLUEVIEW_SDK_ROOT="/home/zeabus/bvtsdk"
+
+alias edit_alias='nano ~/.bash_aliases; source ~/.bash_aliases;'
+alias edit_bashrc='nano ~/.bashrc; source ~/.bashrc;'
+
+alias catkin_source='source ~/catkin_ws/devel/setup.bash; cd ~/catkin_ws; rospack profile; cd -;'
+alias catkin_everywhere='cd ~/catkin_ws; catkin_make; cd -; catkin_source'
+alias cdcatkin='cd ~/catkin_ws'
+
+alias open_cam_top='roslaunch zeabus_vision top.launch'
+alias open_cam_bottom='roslaunch zeabus_vision bottom.launch'
+alias open_cam_all='roslaunch zeabus_vision open_camera.launch'
+
+alias controller='rosrun zeabus_controller zeabus_controller'
+alias thruster='rosrun zeabus_controller thrust_mapper_2016.py'
+
+alias minimal='roslaunch zeabus_bringup minimal.launch'
+alias localization='roslaunch zeabus_bringup zeabus_dvl_localize.launch'
+
+alias ui='roslaunch zeabus_ui ui.launch'
+alias joy_ctrl='roslaunch zeabus_teleop joy_F710.launch'
+alias joy_thruster='roslaunch zeabus_teleop joy_F710_thruster.launch'
+
+alias sshzeabus00='ssh zeabus@zeabus00 -p 22 -X'
+alias sshzeabus01='ssh zeabus@zeabus01 -p 22 -X'
+alias sshzeabus02='ssh zeabus@zeabus02 -p 22 -X'
+
+alias roslocal='export ROS_MASTER_URI=http://localhost:11311/;'
+#alias roszeabus00='export ROS_MASTER_URI=http://zeabus00:11311/;'
+alias roszeabus01='export ROS_MASTER_URI=http://zeabus01:11311/;'
+alias roszeabus02='export ROS_MASTER_URI=http://zeabus02:11311/;'
+alias rosme='export ROS_MASTER_URI=http://me:11311/;'
+
+alias cam_record_top='rosbag record /top/center/image_rect_color/compressed'
+alias cam_record_bottom='rosbag record /bottom/left/image_raw/compressed'
+alias record_all='rosbag record -a'
+
+alias accessport='sudo chmod 666 /dev/ttyUSB0'
+
+
+#roslocal
+#accessport
+rosme
+#roszeabus00
+#roszeabus01
+#roszeabus02
+
+
+
+
+
+
+
+

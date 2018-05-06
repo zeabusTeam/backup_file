@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- vision_sk -->
+	<rosparam ns="color_range" command="load" file="$(find zeabus_vision_sk)/params/color_top.yaml">
+	</rosparam>
+	<node pkg="zeabus_vision_sk" name="color_range_top" type="vision_top.py" output="screen">
+		<param name="topic_top" value='/leftcam_top/image_raw/compressed'/>
+	</node>
+	<rosparam ns="color_range" command="load" file="$(find zeabus_vision_sk)/params/color_down.yaml">
+	</rosparam>
+	<node pkg="zeabus_vision_sk" name="color_range_down" type="vision_down.py" output="screen">
+		<param name="topic_down" value='/rightcam_bottom/image_raw/compressed'/>
+	</node>
+	
+</launch>

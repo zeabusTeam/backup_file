@@ -1,0 +1,14 @@
+<launch>
+
+  	<node pkg="rosbag" type="play" name="rosbag" args="/home/zeabus/calibrate.bag"/>
+
+  	<node name="extract" pkg="image_view" type="extract_images" respawn="false" output="screen" cwd="node">
+    	<remap from="image" to="/leftcam_top/image_raw"/>
+    	<param name="filename_format" value="/home/zeabus/image_stereo/left%02i.jpg"/>
+  	</node>
+
+	<node name="extract1" pkg="image_view" type="extract_images" respawn="false" output="screen" cwd="node">
+		<remap from="image" to="/rightcam_top/image_raw"/>
+		<param name="filename_format" value="/home/zeabus/image_stereo/right%02i.jpg"/>
+	</node>
+</launch>

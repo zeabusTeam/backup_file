@@ -1,0 +1,83 @@
+*
+{
+font-family: "Ubuntu Mono";
+}
+
+tbody.devices > tr{
+  cursor: pointer; cursor: hand;
+}
+
+table
+{
+  padding: 0;
+
+}
+
+tr,td ,th {
+  padding : 0px 5px 0px 5px;
+  border: solid 0.4px #172973; 
+  
+}
+
+td > .btn{
+    border-radius: 0px;
+    height: 100%;
+    line-height: 100%;
+    padding: 0;
+    text-transform: uppercase; 
+    
+}
+
+#header
+{
+margin-top :10px; 
+margin-bottom: 10px;
+}
+
+#HR
+{
+width: 270px;
+}
+
+
+
+input:not([type]).HR-input{
+   height: 100%;
+   line-height: 100%;
+   margin : 0;
+   padding: 0;     
+   width: 60px;
+   border: solid 1px;
+}
+
+#devices,#allRegisters{
+  border: solid 1px #e0e0e0 ;
+  padding-bottom: 10px;
+}
+
+.space-grey
+{
+  background-color: #F5F2F0;
+}
+
+.table-name
+{
+  margin :5px 0px 5px 0px;
+}
+
+.title,#statusIndicator
+{
+  margin: 0px 0px 0px 0px;
+  display: inline-block;
+}
+
+#log
+{
+  margin-left: 10px
+}
+#log > tt
+{
+  display: block;
+  color: red;
+}
+

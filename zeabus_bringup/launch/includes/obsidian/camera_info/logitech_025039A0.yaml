@@ -1,0 +1,20 @@
+image_width: 640
+image_height: 480
+camera_name: front_cam
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [839.5714580073013, 0, 347.7331053783424, 0, 843.916304790209, 152.6010328984877, 0, 0, 1]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.0408057516920536, -0.4475346111369937, -0.0147062587793425, 0.006322970993982475, 0]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [794.36572265625, 0, 354.2772006874729, 0, 0, 796.9815063476562, 143.2451305475615, 0, 0, 0, 1, 0]

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<robot name="zeabus_pelican_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:property name="M_PI" value="3.1415926535897931"/>
+	<xacro:property name="buoy_x" value="0.2"/>
+	<xacro:property name="buoy_y" value="0.1"/>
+	<xacro:property name="buoy_z" value="0.0"/>
+	<xacro:property name="buoy_r" value="0.05"/>
+	<xacro:property name="buoy_mass" value="1"/>
+	<xacro:property name="buoy_i" value="1"/>
+	<xacro:property name="buoy_compensation" value="10"/>
+	<xacro:property name="buoy_damping" value="50 100 10"/>
+	<xacro:macro name="buoy" params="name parent *origin mass inertial radius compensation damping">
+		<joint name="${name}" type="revolute">			
+			<axis xyz="0 0 1"/>
+			<limit effort="10000.0" lower="0.0" upper="0.0" velocity="0.0"/>
+			<xacro:insert_block name="origin"/>
+			<child link="${name}_link"/>
+			<parent link="${parent}"/>
+		</joint>
+		<link name="${name}_link">
+			<inertial>
+				<mass value="${mass}"/>
+				<origin xyz="0 0 0"/>
+				<inertia ixx="${inertial}" ixy="0.0" ixz="0.0" iyy="${inertial}" iyz="0.0" izz="${inertial}"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<sphere radius="${radius}"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<sphere radius="${radius}"/>
+				</geometry>
+			</collision>
+			<buoyancy>
+				<compensation>${compensation}</compensation>
+				<damping xyz="${damping}"/>
+			</buoyancy>
+		</link>
+	</xacro:macro>
+
+    <!-- Included URDF Files -->
+    <xacro:include filename="$(find zeabus_description)/urdf/pelican_base.urdf.xacro" />
+    
+    <!-- Instantiate pelican_base_macro once (has no parameters atm) -->
+    <xacro:pelican_base_macro />
+
+	<xacro:buoy name="mass0" parent="base_link" mass="${buoy_mass}" inertial="${buoy_i}" radius="${buoy_r}" compensation="${buoy_compensation}" damping="${buoy_damping}">			
+		<origin xyz="${buoy_x} ${buoy_y} ${buoy_z}" rpy="0 0 0"/>
+	</xacro:buoy>
+	<xacro:buoy name="mass1" parent="base_link" mass="${buoy_mass}" inertial="${buoy_i}" radius="${buoy_r}" compensation="${buoy_compensation}" damping="${buoy_damping}">			
+		<origin xyz="-${buoy_x} ${buoy_y} ${buoy_z}" rpy="0 0 0"/>
+	</xacro:buoy>
+	<xacro:buoy name="mass2" parent="base_link" mass="${buoy_mass}" inertial="${buoy_i}" radius="${buoy_r}" compensation="${buoy_compensation}" damping="${buoy_damping}">			
+		<origin xyz="-${buoy_x} -${buoy_y} ${buoy_z}" rpy="0 0 0"/>
+	</xacro:buoy>
+	<xacro:buoy name="mass3" parent="base_link" mass="${buoy_mass}" inertial="${buoy_i}" radius="${buoy_r}" compensation="${buoy_compensation}" damping="${buoy_damping}">			
+		<origin xyz="${buoy_x} -${buoy_y} ${buoy_z}" rpy="0 0 0"/>
+	</xacro:buoy>
+</robot>

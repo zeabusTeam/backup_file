@@ -1,0 +1,10 @@
+<launch>
+	<arg name="publish_invalid_data" default="false"/>
+	<node pkg="hg_ros_teledyne_dvl" name="dvl" type="dvl_node" output="screen">
+		<param name="device" value="/dev/usb2serial/ftdi_A4034AWG" />
+		<param name="baudrate" value="115200" />
+		<param name="frame_id" value="dvl_link" />
+		<param name="velocity_stdev" value="0.018"/>		
+		<param name="publish_invalid_data" value="$(arg publish_invalid_data)"/>		
+	</node>
+</launch> 

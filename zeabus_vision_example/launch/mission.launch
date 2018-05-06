@@ -1,0 +1,6 @@
+<launch>
+	<arg name="mission"/>
+	<arg name="time"/>
+	<rosparam ns="color_range_$(arg mission)" command="load" file="$(find zeabus_example)/params/$(arg time)/color_$(arg mission).yaml"/>
+	<node pkg="zeabus_example" name="mission" type="$(arg mission).py" output="screen"/>
+</launch>

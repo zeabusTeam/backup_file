@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+	<rosparam ns="color_range" command="load" file="$(find zeabus_example)/params/color_example.yaml"></rosparam>
+	<node pkg="zeabus_example" name="mission" type="kengate.py" output="screen">
+        <param name="cameraTopic" type='str' value='/syrena/front_cam/image_raw/compressed'/>
+    </node>
+</launch>

@@ -1,0 +1,14 @@
+;--------------------------------------------------------------------------
+; ExplorerDVL type: 600 kHz ExplorerDVL
+; Setup name: ExplorerDVL.txt
+; Setup type: Bottom Track only
+;
+; NOTE: Any line beginning with a semicolon in the first column is
+;       treated as a comment and is ignored by the software.
+;       Modified Last: 21 March 2013
+;-------------------------------------------------------------------------
+; **************************************
+; ExplorerDVL Basic Setup Commands
+; **************************************
+; Restore factory default settings in the ExplorerDVL
+CR1

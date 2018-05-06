@@ -1,0 +1,17 @@
+<package>
+	<name>zeabus_description</name>
+	<version>0.0.1</version>
+	<description>
+		zeabus_description
+	</description>	
+	<maintainer email="mahisorn.w@hiveground.com">Mahisorn Wongphati</maintainer>	
+	<license>BSD</license>
+	<url type="website">http://iml.cpe.ku.ac.th/zeabus/</url>	
+	<buildtool_depend>catkin</buildtool_depend>
+	
+	<build_depend>urdf</build_depend>
+	<build_depend>xacro</build_depend>
+	
+	<run_depend>urdf</run_depend>
+	<run_depend>xacro</run_depend>
+</package>

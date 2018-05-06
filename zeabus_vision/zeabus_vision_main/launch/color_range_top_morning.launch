@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="mission"/>
+	<rosparam ns="color_range_$(arg mission)" command="load" file="$(find zeabus_vision)/params/morning/color_top_$(arg mission).yaml"></rosparam>
+	<node pkg="zeabus_vision" name="color_range" type="color_range_main.py" output="screen">
+		<param name="cameraTopic" type='str' value='/top/center/image_rect_color/compressed'/>
+		<param name="cameraPos" type='str' value='top'/>
+		<param name="mission" type="str" value="$(arg mission)"/>
+		<param name="time" type="str" value="morning"/>
+	</node>
+</launch>

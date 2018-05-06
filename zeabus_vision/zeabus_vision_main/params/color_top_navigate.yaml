@@ -1,0 +1,25 @@
+ color_top:
+  upper_yellow: '179,255,202'
+
+  lower_yellow: '0,182,85'
+
+  upper_black: '177,240,255'
+
+  lower_black: '175,226,255'
+
+  upper_orange: '9,200,208'
+
+  lower_orange: '4,129,198'
+
+  upper_green: '116,252,255'
+
+  lower_green: '105,72,0'
+
+  upper_white: '177,251,212'
+
+  lower_white: '39,71,120'
+
+  upper_red: '179,218,255'
+
+  lower_red: '119,89,0'
+

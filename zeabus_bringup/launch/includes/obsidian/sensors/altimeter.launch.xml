@@ -1,0 +1,10 @@
+<launch>
+	<arg name="publish_invalid_data" default="false"/>
+	<node pkg="hg_ros_tritech_altimeter" name="altimeter" type="altimeter_node" output="screen">
+		<param name="device" value="/dev/usb2serial/ftdi_FTHGN6QF" />
+		<param name="baudrate" value="9600" />
+		<param name="frame_id" value="altimeter" />
+		<param name="velocity_stdev" value="0.018"/>		
+		<param name="publish_invalid_data" value="$(arg publish_invalid_data)"/>
+	</node>
+</launch> 

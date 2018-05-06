@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">				
+	<xacro:macro name="imu" params="name parent *origin sensor_orientation">
+		<joint name="${name}_joint" type="fixed">
+			<parent link="${parent}"/>
+			<child link="${name}_dumy_link"/>			
+			<xacro:insert_block name="origin" />
+		</joint>
+		
+		<link name="${name}_dumy_link"/>
+		
+		<joint name="${name}_base_joint" type="fixed">
+			<parent link="${name}_dumy_link"/>
+			<child link="${name}_link"/>			
+			<origin xyz="0 0 0" rpy="${sensor_orientation}"/>			
+		</joint>
+		
+		<link name="${name}_link">
+			<inertial>
+				<mass value="0.1" />
+				<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<box size="0.04 0.02 0.01"/>
+				</geometry>
+				<xacro:insert_block name="material_black" />
+			</visual>			
+		</link>		
+	</xacro:macro>
+</robot>

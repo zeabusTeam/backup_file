@@ -1,0 +1,6 @@
+<launch>
+	<arg name="mission"/>
+	<arg name="camera"/>
+	<rosparam ns="color_range_$(arg mission)" command="load" file="$(find zeabus_vision)/params/color_$(arg camera)_$(arg mission).yaml"/>
+	<node pkg="zeabus_vision_mission" name="mission" type="$(arg mission).py" output="screen"/>
+</launch>
