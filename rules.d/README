@@ -1,3 +1,5 @@
+--- General Chose copy this file or add rules to /etc/udev/rules.d ---
+
 The files in this directory are read by udev(7) and used when events
 are performed by the kernel.  The udev daemon watches this directory
 with inotify so that changes to these files are automatically picked
